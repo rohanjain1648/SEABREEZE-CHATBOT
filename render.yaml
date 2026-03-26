@@ -26,4 +26,3 @@ services:
           name: seabreeze-backend
           type: web
           property: host
-    plan: free
