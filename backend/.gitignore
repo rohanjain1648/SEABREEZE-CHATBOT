@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+env/
+venv/
+.env
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Data
+leads.json
+project_data.json.bak
+
+# OS
+.DS_Store
+Thumbs.db

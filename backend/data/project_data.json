@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "name": "Seabreeze by Godrej Bayview",
+    "developer": "Godrej Properties",
+    "location": "Sector 9, Vashi",
+    "relationship_manager": "Shardul",
+    "description": "The Most Exclusive Tower at Godrej Bayview, Vashi. 2 & 3 Bed Residences with private deck and 52+ amenities across 3 levels."
+  },
+  "residences": [
+    {
+      "type": "2 BHK",
+      "size": "874+ Sq Ft",
+      "price": "₹3.20 Cr+",
+      "features": ["Private Deck", "Stunning Sea & City Views", "Spacious Balconies"]
+    },
+    {
+      "type": "3 BHK",
+      "size": "1266+ Sq Ft",
+      "price": "₹4.75 Cr+",
+      "features": ["Private Deck", "Stunning Sea & City Views", "Spacious Balconies"]
+    }
+  ],
+  "location_advantage": [
+    "Fr. Agnel School & Jr. College: 2 mins",
+    "Mini Sea Shore: 2 mins",
+    "Reliance Fresh: 4 mins",
+    "Fortis Hiranandani Hospital: 4 mins",
+    "Inorbit Mall: 5 mins",
+    "Four Points by Sheraton: 5 mins"
+  ],
+  "connectivity": [
+    "Sion Panvel Highway: 2 mins",
+    "Vashi Station: 6 mins",
+    "Vashi Bus Depot: 4 mins",
+    "Eastern Freeway: 19 mins",
+    "Palm Beach Rd: 4 mins",
+    "Thane Belapur Rd: 5 mins",
+    "Mumbai Pune Expressway: 20 mins",
+    "Ghatkopar Mulund Link Rd: 15 mins"
+  ],
+  "amenities": {
+    "level_one_retreat": ["Badminton court", "Sr. citizen plaza", "Banquet Hall", "Squash Court", "Kids play area"],
+    "e_deck_retreat": ["Swimming pool", "Glass house cafe", "Yoga Deck", "Crèche", "Party Lawn", "Spa", "Library"],
+    "sky_retreat": ["Star Gazing deck", "Sky Yoga", "Tree Court", "Sky Lawn", "Reflexology Pathway"],
+    "total_count": "52+ Amenities across 3 levels"
+  },
+  "usps": [
+    "Sea View Apartments",
+    "Private Deck for every residence",
+    "Prime Location in Vashi",
+    "Unmatched Connectivity",
+    "Ultra-Luxury Amenities"
+  ]
+}

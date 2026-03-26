@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pymongo
+sentence-transformers
+faiss-cpu
+langgraph
+langchain
+elevenlabs
+google-generativeai
+python-dotenv
