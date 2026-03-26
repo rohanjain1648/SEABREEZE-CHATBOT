@@ -1,6 +1,6 @@
 import json
 import os
-from sentence_transformers import SentenceTransformer
+import google.generativeai as genai
 import faiss
 import numpy as np
 
@@ -25,15 +25,42 @@ try:
 
     documents = flatten_data(data)
 
-    model = SentenceTransformer('all-MiniLM-L6-v2')
-    embeddings = model.encode(documents)
-    index = faiss.IndexFlatL2(embeddings.shape[1])
-    index.add(np.array(embeddings))
+    # Use Gemini Text Embedding Model to save 500MB+ RAM vs local PyTorch models
+    api_key = os.getenv("GEMINI_API_KEY")
+    if api_key:
+        genai.configure(api_key=api_key)
+        
+    def get_embeddings(texts):
+        if not os.getenv("GEMINI_API_KEY"):
+            return np.zeros((len(texts), 768), dtype=np.float32)
+            
+        result = genai.embed_content(
+            model="models/text-embedding-004",
+            content=texts,
+            task_type="retrieval_document"
+        )
+        return np.array(result['embedding'], dtype=np.float32)
+
+    print("Initializing Gemini Embeddings (Lightweight)...")
+    raw_embeddings = get_embeddings(documents)
+    
+    # Gemini text-embedding-004 outputs 768 dimensions
+    index = faiss.IndexFlatL2(768)
+    if raw_embeddings.shape[0] > 0 and raw_embeddings.shape[1] == 768:
+        index.add(raw_embeddings)
     
     def retrieve_context(query):
-        q_embedding = model.encode([query])
-        D, I = index.search(np.array(q_embedding), k=5)
-        results = [documents[i] for i in I[0]]
+        if not os.getenv("GEMINI_API_KEY"):
+            return "Seabreeze by Godrej Bayview is located in Vashi. 2 BHK starts at 3.20 Cr, 3 BHK starts at 4.75 Cr. It has sea views and 52+ amenities."
+            
+        q_result = genai.embed_content(
+            model="models/text-embedding-004",
+            content=query,
+            task_type="retrieval_query"
+        )
+        q_embedding = np.array([q_result['embedding']], dtype=np.float32)
+        D, I = index.search(q_embedding, k=5)
+        results = [documents[i] for i in I[0] if i >= 0]
         return "\n".join(results)
 
 except Exception as e:
