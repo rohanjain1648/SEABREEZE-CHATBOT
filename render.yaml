@@ -14,9 +14,8 @@ services:
     plan: free
 
   # Frontend: React Static Site
-  - type: static
+  - type: static_site
     name: seabreeze-frontend
-    runtime: node
     rootDir: frontend
     buildCommand: npm install && npm run build
     publishDir: dist
