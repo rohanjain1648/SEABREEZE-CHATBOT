@@ -35,7 +35,7 @@ try:
             return np.zeros((len(texts), 768), dtype=np.float32)
             
         result = genai.embed_content(
-            model="models/text-embedding-004",
+            model="models/embedding-001",
             content=texts,
             task_type="retrieval_document"
         )
@@ -54,7 +54,7 @@ try:
             return "Seabreeze by Godrej Bayview is located in Vashi. 2 BHK starts at 3.20 Cr, 3 BHK starts at 4.75 Cr. It has sea views and 52+ amenities."
             
         q_result = genai.embed_content(
-            model="models/text-embedding-004",
+            model="models/embedding-001",
             content=query,
             task_type="retrieval_query"
         )

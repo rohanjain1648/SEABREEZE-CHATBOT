@@ -7,3 +7,4 @@ langchain
 elevenlabs
 google-generativeai
 python-dotenv
+python-multipart
