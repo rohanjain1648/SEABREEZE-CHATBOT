@@ -22,7 +22,4 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          name: seabreeze-backend
-          type: web
-          property: host
+        value: https://seabreeze-backend.onrender.com
