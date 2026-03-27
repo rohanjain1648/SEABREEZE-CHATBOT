@@ -9,7 +9,10 @@ load_dotenv()
 
 from services.rag_service import retrieve_context
 from agents.graph import app_graph
-from db.mongo import save_lead
+from db.mongo import save_lead, get_lead
+
+# Simple in-memory session storage for history (for Zero-Config simplicity)
+sessions = {}
 
 app = FastAPI()
 
@@ -27,18 +30,32 @@ class ChatRequest(BaseModel):
     
 @app.post("/chat")
 async def chat(req: ChatRequest):
+    # Initialize session if not exists
+    if req.session_id not in sessions:
+        sessions[req.session_id] = []
+    
+    chat_history = sessions[req.session_id]
+    existing_lead = get_lead(req.session_id)
+
     # LangGraph agentic approach
     state = {
         "user_input": req.message,
+        "history": chat_history,
         "context": "",
         "response": "",
         "lead": {},
+        "lead_data": existing_lead,
         "intent": ""
     }
     
-    # We can use the simple code or the graph code. The graph incorporates everything.
+    # Run the graph
     result = app_graph.invoke(state)
     
+    # Update memory (keep last 10 turns)
+    chat_history.append({"role": "user", "content": req.message})
+    chat_history.append({"role": "assistant", "content": result["response"]})
+    sessions[req.session_id] = chat_history[-10:]
+
     # If the lead extractor or closer agents populated the lead info:
     if result.get("lead") and any(result["lead"].values()):
         save_lead(req.session_id, result["lead"])

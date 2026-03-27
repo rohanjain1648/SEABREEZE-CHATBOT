@@ -25,3 +25,13 @@ def save_lead(session_id, lead):
         print(f"Lead Saved Locally: {session_id} -> {lead}")
     except Exception as e:
         print(f"Failed to save lead: {e}")
+
+def get_lead(session_id):
+    try:
+        if os.path.exists(LEADS_FILE):
+            with open(LEADS_FILE, "r") as f:
+                leads = json.load(f)
+                return leads.get(session_id, {})
+    except Exception as e:
+        print(f"Failed to get lead: {e}")
+    return {}

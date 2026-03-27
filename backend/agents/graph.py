@@ -4,9 +4,11 @@ from agents.nodes import router, rag_agent, sales_agent, lead_agent, closer_agen
 
 class AgentState(TypedDict):
     user_input: str
+    history: list
     context: str
     response: str
     lead: dict
+    lead_data: dict  # Persistent lead info from previous turns
     intent: str
 
 graph = StateGraph(AgentState)
